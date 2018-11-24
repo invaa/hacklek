@@ -1,0 +1,11 @@
+<mat-vertical-stepper>
+  <mat-step label="Fill the data">
+    <app-user-data (userDataEvent)="onUserDataEvent($event)"></app-user-data>
+  </mat-step>
+  <mat-step label="Add medicines">
+    <app-prescription-parser (medicinesEvent)="onMedicinesEvent($event)"></app-prescription-parser>
+  </mat-step>
+  <mat-step label="Optimize list of medicines">
+    <app-prescription-optimizer [medicines]="medicines" [userData]="userData"></app-prescription-optimizer>
+  </mat-step>
+</mat-vertical-stepper>

@@ -1,0 +1,30 @@
+<div class="user-data-container" fxLayout="row" fxLayoutAlign="center start">
+
+  <form [formGroup]="form" (ngSubmit)="next()" class="user-data-form">
+
+    <mat-form-field class="input-full-width">
+      <input matInput placeholder="Age" type="number" formControlName="age">
+      <mat-error *ngIf="form.hasError('required', 'Age')">
+        Age is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <section class="section">
+      <mat-radio-group formControlName="sex">
+        <mat-radio-button color="primary" value="M">Male</mat-radio-button>
+        <mat-radio-button color="primary" class="checkbox-margin" value="F">Female</mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <section class="section">
+      <mat-checkbox color="primary" formControlName="alcohol">Alcohol</mat-checkbox>
+      <mat-checkbox class="checkbox-margin" color="primary" formControlName="pregnancy">
+        Pregnancy
+      </mat-checkbox>
+    </section>
+
+    <button mat-fab matStepperNext color="primary" type="submit" [disabled]="!form.valid">Next</button>
+
+  </form>
+
+</div>
