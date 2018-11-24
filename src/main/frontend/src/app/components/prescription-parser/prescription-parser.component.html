@@ -1,0 +1,13 @@
+<form (ngSubmit)="next()" class="prescription-parser-form">
+  <mat-form-field class="full-width">
+    <input type="text" placeholder="Start typing" aria-label="Number" matInput [formControl]="userInput" [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of medicinesOptions | async" [value]="option">
+        {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+<button mat-button matStepperPrevious>Back</button>
+<button mat-button matStepperNext>Next</button>
+
