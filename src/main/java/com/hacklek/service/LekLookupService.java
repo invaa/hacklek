@@ -22,7 +22,7 @@ public class LekLookupService  {
 
         String productRawName = medicine.getName();
 
-        // we need to parse dosage from raw name if it exist
+        // TODO we need to parse dosage from raw name if it exist
 
         // get alternatives by substance name
         Substance substance = medicine.getSubstance();
