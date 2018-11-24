@@ -3,6 +3,7 @@ package com.hacklek.dtos;
 import com.hacklek.entity.Substance;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class MedicineDto {
 
@@ -14,9 +15,39 @@ public class MedicineDto {
 
     private String name;
 
-    private Substance substance;
+    private SubstanceDto substance;
 
     private BigDecimal price;
+
+    private List<PackageDto> packages;
+
+    private List<MedicineDto> analogs;
+
+    private List<SubstanceDto> substances;
+
+    public List<SubstanceDto> getSubstances() {
+        return substances;
+    }
+
+    public void setSubstances(List<SubstanceDto> substances) {
+        this.substances = substances;
+    }
+
+    public List<MedicineDto> getAnalogs() {
+        return analogs;
+    }
+
+    public void setAnalogs(List<MedicineDto> analogs) {
+        this.analogs = analogs;
+    }
+
+    public List<PackageDto> getPackages() {
+        return packages;
+    }
+
+    public void setPackages(List<PackageDto> packages) {
+        this.packages = packages;
+    }
 
     public Long getId() {
         return id;
@@ -50,13 +81,6 @@ public class MedicineDto {
         this.name = name;
     }
 
-    public Substance getSubstance() {
-        return substance;
-    }
-
-    public void setSubstance(Substance substance) {
-        this.substance = substance;
-    }
 
     public BigDecimal getPrice() {
         return price;
