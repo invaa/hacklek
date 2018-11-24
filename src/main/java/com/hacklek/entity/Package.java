@@ -21,6 +21,9 @@ public class Package implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(name="EAN")
+    private String ean;
+
     @Column(name="NAME")
     private String name;
 
