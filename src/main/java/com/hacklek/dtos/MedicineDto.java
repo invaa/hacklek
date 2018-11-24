@@ -1,7 +1,5 @@
 package com.hacklek.dtos;
 
-import com.hacklek.entity.Substance;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -9,13 +7,11 @@ public class MedicineDto {
 
     private Long id;
 
-    private String ean;
-
     private String type;
 
-    private String name;
+    private String atcCode;
 
-    private SubstanceDto substance;
+    private String name;
 
     private BigDecimal price;
 
@@ -57,12 +53,12 @@ public class MedicineDto {
         this.id = id;
     }
 
-    public String getEan() {
-        return ean;
+    public String getAtcCode() {
+        return atcCode;
     }
 
-    public void setEan(String ean) {
-        this.ean = ean;
+    public void setAtcCode(String atcCode) {
+        this.atcCode = atcCode;
     }
 
     public String getType() {

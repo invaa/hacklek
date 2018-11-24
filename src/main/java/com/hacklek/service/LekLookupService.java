@@ -3,6 +3,7 @@ package com.hacklek.service;
 import com.hacklek.dtos.MedicineDto;
 import com.hacklek.dtos.PackageDto;
 import com.hacklek.dtos.SubstanceDto;
+import com.hacklek.entity.Medicine;
 import com.hacklek.repository.MedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,19 @@ public class LekLookupService  {
 
     public MedicineDto lookupMedicine(String name) {
         // query db and make result
+        List<Medicine> medicineList = medicineRepository.findByNameIgnoreCaseContaining(name);
+
+        if(medicineList == null || medicineList.isEmpty()) {
+            return null;
+        }
+
+        Medicine medicineTest = medicineList.get(0);
 
         // TODO stub result
         MedicineDto m1 = new MedicineDto();
-        m1.setEan("EAN");
-        m1.setId(123L);
-        m1.setName("Paracetamol");
+        m1.setAtcCode(medicineTest.getAtcCode());
+        m1.setId(medicineTest.getId());
+        m1.setName(medicineTest.getName());
 
         PackageDto p1 = new PackageDto();
         p1.setEan("EAN");
