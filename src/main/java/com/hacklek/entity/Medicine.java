@@ -45,6 +45,6 @@ public class Medicine implements Serializable {
 
     @OneToOne(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    @JoinColumn(name="DEFAULT_PACKAGE")
+    @JoinColumn(name="DEFAULT_PACKAGE_ID")
     private Package defaultPackage;
 }
