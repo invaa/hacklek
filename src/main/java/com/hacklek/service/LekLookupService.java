@@ -17,6 +17,30 @@ public class LekLookupService  {
     @Autowired
     private MedicineRepository medicineRepository;
 
+    public MedicineDto findAlternatives(Long id) {
+        Medicine medicine = medicineRepository.findOne(id);
+
+        String productRawName = medicine.getName();
+
+        // we need to parse dosage from raw name if it exist
+
+        // get alternatives by substance name
+        Substance substance = medicine.getSubstance();
+        List<Medicine> alternatives = medicineRepository.findBySubstanceId(substance.getId());
+        List<MedicineDto> medicineAlternativesDtos = new ArrayList<>();
+
+        for(Medicine altMedicine: alternatives) {
+            MedicineDto alternative = convertToMedicineDto(altMedicine);
+            medicineAlternativesDtos.add(alternative);
+        }
+
+        MedicineDto dto = new MedicineDto();
+        dto.setAnalogs(medicineAlternativesDtos);
+
+        return dto;
+
+    }
+
     public MedicineShortListDto lookupMedicines(String name) {
         // query db and make result
         List<Medicine> medicineList = medicineRepository.findByNameIgnoreCaseContaining(name);
@@ -42,19 +66,6 @@ public class LekLookupService  {
         list.setMedicineShortDtos(medicineShortDtos);
 
         return list;
-
-        // get alternatives by substance name
-//        Substance substance = medicine.getSubstance();
-//        List<Medicine> alternatives = medicineRepository.findBySubstanceId(substance.getId());
-//        List<MedicineDto> medicineAlternativesDtos = new ArrayList<>();
-//
-//        for(Medicine altMedicine: alternatives) {
-//            MedicineDto alternative = convertToMedicineDto(altMedicine);
-//            medicineAlternativesDtos.add(alternative);
-//        }
-//        dto.setAnalogs(medicineAlternativesDtos);
-//
-//        return dto;
     }
 
     private MedicineDto convertToMedicineDto(Medicine medicine) {

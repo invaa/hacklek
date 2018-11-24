@@ -1,7 +1,6 @@
 package com.hacklek.controller;
 
 import com.hacklek.dtos.MedicineDto;
-import com.hacklek.dtos.MedicineShortListDto;
 import com.hacklek.dtos.UserDataDto;
 import com.hacklek.service.LekLookupService;
 import lombok.extern.log4j.Log4j;
@@ -16,20 +15,19 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/")
 @Log4j
-public class LekLookupController {
+public class LekAlternativesController {
 
     @Autowired
     private LekLookupService lekLookupService;
 
-    @RequestMapping(value = "lookup/{name}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public ResponseEntity<MedicineShortListDto> lookup(@PathVariable("name") String name) {
-        log.info("lookup endpoint executed.");
+    @RequestMapping(value = "alternatives/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public ResponseEntity<MedicineDto> lookup(@PathVariable("id") Long id, @RequestBody UserDataDto userDataDto) {
+        log.info("alternatives endpoint executed.");
 
-        MedicineShortListDto resultDto = lekLookupService.lookupMedicines(name);
+        log.info(userDataDto);
+
+        MedicineDto resultDto = lekLookupService.findAlternatives(id);
         return new ResponseEntity<>(resultDto, HttpStatus.OK);
     }
 
-
-
 }
-
