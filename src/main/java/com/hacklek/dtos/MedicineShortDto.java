@@ -5,10 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SubstanceDto {
+public class MedicineShortDto {
 
     private Long id;
-
     private String name;
 
 }

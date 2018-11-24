@@ -1,7 +1,12 @@
 package com.hacklek.dtos;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 
+@Getter
+@Setter
 public class PackageDto {
 
     private Long id;
@@ -14,43 +19,4 @@ public class PackageDto {
 
     private BigDecimal refundPrice;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEan() {
-        return ean;
-    }
-
-    public void setEan(String ean) {
-        this.ean = ean;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getRefundPrice() {
-        return refundPrice;
-    }
-
-    public void setRefundPrice(BigDecimal refundPrice) {
-        this.refundPrice = refundPrice;
-    }
 }

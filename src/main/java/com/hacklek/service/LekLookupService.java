@@ -1,8 +1,6 @@
 package com.hacklek.service;
 
-import com.hacklek.dtos.MedicineDto;
-import com.hacklek.dtos.PackageDto;
-import com.hacklek.dtos.SubstanceDto;
+import com.hacklek.dtos.*;
 import com.hacklek.entity.Medicine;
 import com.hacklek.entity.Package;
 import com.hacklek.entity.Substance;
@@ -19,29 +17,44 @@ public class LekLookupService  {
     @Autowired
     private MedicineRepository medicineRepository;
 
-    public MedicineDto lookupMedicine(String name) {
+    public MedicineShortListDto lookupMedicines(String name) {
         // query db and make result
         List<Medicine> medicineList = medicineRepository.findByNameIgnoreCaseContaining(name);
+
+        if(name == null || name.isEmpty()) {
+            return null;
+        }
 
         if(medicineList == null || medicineList.isEmpty()) {
             return null;
         }
 
-        Medicine medicine = medicineList.get(0); // get first one
-        MedicineDto dto = convertToMedicineDto(medicine);
+        List<MedicineShortDto> medicineShortDtos = new ArrayList<>();
+
+        for(Medicine medicine : medicineList) {
+            MedicineShortDto medicineShortDto = new MedicineShortDto();
+            medicineShortDto.setId(medicine.getId());
+            medicineShortDto.setName(medicine.getName());
+            medicineShortDtos.add(medicineShortDto);
+        }
+
+        MedicineShortListDto list = new MedicineShortListDto();
+        list.setMedicineShortDtos(medicineShortDtos);
+
+        return list;
 
         // get alternatives by substance name
-        Substance substance = medicine.getSubstance();
-        List<Medicine> alternatives = medicineRepository.findBySubstanceId(substance.getId());
-        List<MedicineDto> medicineAlternativesDtos = new ArrayList<>();
-
-        for(Medicine altMedicine: alternatives) {
-            MedicineDto alternative = convertToMedicineDto(altMedicine);
-            medicineAlternativesDtos.add(alternative);
-        }
-        dto.setAnalogs(medicineAlternativesDtos);
-
-        return dto;
+//        Substance substance = medicine.getSubstance();
+//        List<Medicine> alternatives = medicineRepository.findBySubstanceId(substance.getId());
+//        List<MedicineDto> medicineAlternativesDtos = new ArrayList<>();
+//
+//        for(Medicine altMedicine: alternatives) {
+//            MedicineDto alternative = convertToMedicineDto(altMedicine);
+//            medicineAlternativesDtos.add(alternative);
+//        }
+//        dto.setAnalogs(medicineAlternativesDtos);
+//
+//        return dto;
     }
 
     private MedicineDto convertToMedicineDto(Medicine medicine) {
