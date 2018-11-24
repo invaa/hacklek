@@ -4,11 +4,14 @@ import com.hacklek.dtos.MedicineDto;
 import com.hacklek.dtos.PackageDto;
 import com.hacklek.dtos.SubstanceDto;
 import com.hacklek.entity.Medicine;
+import com.hacklek.entity.Package;
+import com.hacklek.entity.Substance;
 import com.hacklek.repository.MedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,37 +29,52 @@ public class LekLookupService  {
             return null;
         }
 
-        Medicine medicineTest = medicineList.get(0);
+        Medicine medicine = medicineList.get(0); // get first one
+        MedicineDto dto = convertToMedicineDto(medicine);
 
-        // TODO stub result
-        MedicineDto m1 = new MedicineDto();
-        m1.setAtcCode(medicineTest.getAtcCode());
-        m1.setId(medicineTest.getId());
-        m1.setName(medicineTest.getName());
+        return dto;
+    }
 
-        PackageDto p1 = new PackageDto();
-        p1.setEan("EAN");
-        p1.setId(123L);
-        p1.setPrice(new BigDecimal(100));
+    private MedicineDto convertToMedicineDto(Medicine medicine) {
+        MedicineDto dto = new MedicineDto();
 
-        PackageDto p2 = new PackageDto();
-        p2.setEan("EAN");
-        p2.setId(234L);
-        p2.setPrice(new BigDecimal(200));
+        dto.setAtcCode(medicine.getAtcCode());
+        dto.setId(medicine.getId());
+        dto.setName(medicine.getName());
 
-        m1.setPackages(Arrays.asList(p1, p2));
+        Substance substance = medicine.getSubstance();
+        dto.setSubstance(convertToSubstanceDto(substance));
 
-        SubstanceDto s1 = new SubstanceDto();
-        s1.setId(123L);
-        s1.setName("Substance1");
+        List<Package> packages = medicine.getPackages();
+        List<PackageDto> packageDtos = new ArrayList<>();
 
-        SubstanceDto s2 = new SubstanceDto();
-        s2.setId(123L);
-        s2.setName("Substance2");
+        for(Package pack : packages) {
+            packageDtos.add(convertToPackageDto(pack));
+        }
+        dto.setPackages(packageDtos);
 
-        m1.setSubstances(Arrays.asList(s1, s2));
 
-        return m1;
+        return dto;
+    }
+
+    private PackageDto convertToPackageDto(Package pack) {
+        PackageDto dto = new PackageDto();
+
+        dto.setPrice(pack.getPrice());
+        dto.setId(pack.getId());
+        dto.setEan(pack.getEan());
+        dto.setName(pack.getName());
+        dto.setRefundPrice(pack.getRefundPrice());
+
+        return dto;
+    }
+
+    private SubstanceDto convertToSubstanceDto(Substance substance) {
+        SubstanceDto dto = new SubstanceDto();
+        dto.setName(substance.getName());
+        dto.setId(substance.getId());
+
+        return dto;
     }
 
 }

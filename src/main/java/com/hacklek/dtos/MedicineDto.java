@@ -19,14 +19,14 @@ public class MedicineDto {
 
     private List<MedicineDto> analogs;
 
-    private List<SubstanceDto> substances;
+    private SubstanceDto substance;
 
-    public List<SubstanceDto> getSubstances() {
-        return substances;
+    public SubstanceDto getSubstance() {
+        return substance;
     }
 
-    public void setSubstances(List<SubstanceDto> substances) {
-        this.substances = substances;
+    public void setSubstance(SubstanceDto substance) {
+        this.substance = substance;
     }
 
     public List<MedicineDto> getAnalogs() {
