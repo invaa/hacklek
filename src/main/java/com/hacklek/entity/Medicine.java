@@ -36,7 +36,4 @@ public class Medicine implements Serializable {
             cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="SUBSTANCE_ID")
     private Substance substance;
-
-    @Column(name="PRICE")
-    private BigDecimal price;
 }
