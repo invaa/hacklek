@@ -19,10 +19,24 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Medicine implements Serializable {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "UUID", columnDefinition = "BINARY(16)")
-    private UUID id;
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
+    @Column(name="EAN")
+    private String ean;
+
+    @Column(name="TYPE")
+    private String type;
+
+    @Column(name="NAME")
+    private String name;
+
+    @OneToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="SUBSTANCE_ID")
+    private Substance substance;
+
     @Column(name="PRICE")
     private BigDecimal price;
 }
