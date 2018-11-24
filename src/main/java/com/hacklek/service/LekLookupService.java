@@ -14,15 +14,41 @@ import java.util.List;
 @Service
 public class LekLookupService  {
 
+    public static final String PRODUCT_DOSE_SEPARATOR = ",";
     @Autowired
     private MedicineRepository medicineRepository;
+
+
+    private String getProductDoseFromRawName(String rawProductName) {
+        String[] array = rawProductName.split(PRODUCT_DOSE_SEPARATOR);
+
+        if(array.length != 3) {
+            return null;
+        }
+
+        return array[2];
+    }
+
+    private String getProductName(String rawProductName) {
+        String[] array = rawProductName.split(PRODUCT_DOSE_SEPARATOR);
+
+        if(array.length == 0) {
+            return null;
+        }
+
+        return array[0];
+    }
 
     public MedicineDto findAlternatives(Long id) {
         Medicine medicine = medicineRepository.findOne(id);
 
         String productRawName = medicine.getName();
 
-        // TODO we need to parse dosage from raw name if it exist
+        if(productRawName == null || productRawName.isEmpty()) {
+            return null;
+        }
+
+        String productDosage = getProductDoseFromRawName(productRawName);
 
         // get alternatives by substance name
         Substance substance = medicine.getSubstance();
@@ -30,6 +56,16 @@ public class LekLookupService  {
         List<MedicineDto> medicineAlternativesDtos = new ArrayList<>();
 
         for(Medicine altMedicine: alternatives) {
+
+            if(altMedicine.getId().equals(medicine.getId())) { // exclude parent medicine
+                continue;
+            }
+
+            String altMedicineDose = getProductDoseFromRawName(altMedicine.getName());
+            if(altMedicineDose != null && !altMedicineDose.equals(productDosage)) { // skip alt product if dose specified and NOT the same
+                continue;
+            }
+
             MedicineDto alternative = convertToMedicineDto(altMedicine);
             medicineAlternativesDtos.add(alternative);
         }
@@ -43,6 +79,14 @@ public class LekLookupService  {
         dto.setAtcCode(medicine.getAtcCode());
         dto.setId(medicine.getId());
         dto.setType(medicine.getType());
+
+        List<Package> packages = medicine.getPackages();
+        List<PackageDto> packageDtos = new ArrayList<>();
+
+        for(Package pack : packages) {
+            packageDtos.add(convertToPackageDto(pack));
+        }
+        dto.setPackages(packageDtos);
 
         return dto;
 
@@ -78,9 +122,6 @@ public class LekLookupService  {
         dto.setAtcCode(medicine.getAtcCode());
         dto.setId(medicine.getId());
         dto.setName(medicine.getName());
-
-//        Substance substance = medicine.getSubstance();
-//        dto.setSubstance(convertToSubstanceDto(substance));
 
         List<Package> packages = medicine.getPackages();
         List<PackageDto> packageDtos = new ArrayList<>();
