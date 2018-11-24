@@ -13,6 +13,8 @@ public interface MedicineRepository extends JpaRepository<Medicine, UUID> {
 
     List<Medicine> findByNameIgnoreCaseContaining(String name);
 
+    List<Medicine> findByNameIgnoreCaseStartsWith(String name);
+
     @Query("select m from Medicine m where m.substance.id = ?1")
     List<Medicine> findBySubstanceId(Long id);
 
