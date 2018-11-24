@@ -10,9 +10,7 @@ import com.hacklek.repository.MedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -31,6 +29,17 @@ public class LekLookupService  {
 
         Medicine medicine = medicineList.get(0); // get first one
         MedicineDto dto = convertToMedicineDto(medicine);
+
+        // get alternatives by substance name
+        Substance substance = medicine.getSubstance();
+        List<Medicine> alternatives = medicineRepository.findBySubstanceId(substance.getId());
+        List<MedicineDto> medicineAlternativesDtos = new ArrayList<>();
+
+        for(Medicine altMedicine: alternatives) {
+            MedicineDto alternative = convertToMedicineDto(altMedicine);
+            medicineAlternativesDtos.add(alternative);
+        }
+        dto.setAnalogs(medicineAlternativesDtos);
 
         return dto;
     }
