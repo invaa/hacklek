@@ -37,11 +37,18 @@ public class LekLookupService  {
         MedicineDto dto = new MedicineDto();
         dto.setAnalogs(medicineAlternativesDtos);
 
+        dto.setSubstance(convertToSubstanceDto(medicine.getSubstance()));
+
+        dto.setName(medicine.getName());
+        dto.setAtcCode(medicine.getAtcCode());
+        dto.setId(medicine.getId());
+        dto.setType(medicine.getType());
+
         return dto;
 
     }
 
-    public MedicineShortListDto lookupMedicines(String name) {
+    public List<MedicineShortDto> lookupMedicines(String name) {
         // query db and make result
         List<Medicine> medicineList = medicineRepository.findByNameIgnoreCaseContaining(name);
 
@@ -62,10 +69,7 @@ public class LekLookupService  {
             medicineShortDtos.add(medicineShortDto);
         }
 
-        MedicineShortListDto list = new MedicineShortListDto();
-        list.setMedicineShortDtos(medicineShortDtos);
-
-        return list;
+        return medicineShortDtos;
     }
 
     private MedicineDto convertToMedicineDto(Medicine medicine) {
@@ -75,8 +79,8 @@ public class LekLookupService  {
         dto.setId(medicine.getId());
         dto.setName(medicine.getName());
 
-        Substance substance = medicine.getSubstance();
-        dto.setSubstance(convertToSubstanceDto(substance));
+//        Substance substance = medicine.getSubstance();
+//        dto.setSubstance(convertToSubstanceDto(substance));
 
         List<Package> packages = medicine.getPackages();
         List<PackageDto> packageDtos = new ArrayList<>();
