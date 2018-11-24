@@ -40,6 +40,11 @@ public class Medicine implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="PACKAGE_ID")
+    @JoinColumn(name="MEDICINE_ID")
     private List<Package> packages;
+
+    @OneToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name="DEFAULT_PACKAGE")
+    private Package defaultPackage;
 }
