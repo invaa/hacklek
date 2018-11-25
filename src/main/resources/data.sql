@@ -10419,4 +10419,4 @@ insert into package(id, ean, name, price, refund, medicine_id) values (5784, '59
 insert into package(id, ean, name, price, refund, medicine_id) values (5785, '5909991094355', '20 szt.', 234.74, 204.24, 3096);
 insert into package(id, ean, name, price, refund, medicine_id) values (5786, '5909991094126', '20 szt.', 79.38, 51.06, 3097);
 insert into package(id, ean, name, price, refund, medicine_id) values (5787, '5909991223489', '20 tabl.', 317.52, 204.24, 3098);
-insert into package(id, ean, name, price, refund, medicine_id) values (5788, '5909990325313', '50 tabl.', 317.52, 204.24, 4055);
+insert into package(id, ean, name, price, refund, medicine_id) values (5788, '5909990325313', '50 tabl.', 7.99, 7.99, 4055);
