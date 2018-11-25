@@ -15,7 +15,7 @@ export class UserDataComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.form = fb.group({
       age: ['', Validators.required],
-      sex: 'M',
+      sex: 'F',
       alcohol: false,
       pregnancy: false
     })

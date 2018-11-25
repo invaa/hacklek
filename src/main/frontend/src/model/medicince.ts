@@ -8,5 +8,8 @@ export class Medicine {
   defaultPackage: number;
   substanceId: number;
   packages: Package[];
-  analog: Medicine;
+  analogs: Medicine[];
+  notForPregnant: boolean;
+  noAlcAllowed: boolean;
+  price: number;
 }

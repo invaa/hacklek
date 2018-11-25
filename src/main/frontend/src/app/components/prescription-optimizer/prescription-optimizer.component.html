@@ -1,3 +1,30 @@
+<mat-list>
+  <mat-list-item *ngFor="let med of currentMedicines">
+    <h3 matLine> {{med.name}} </h3>
+    <p matLine>
+      <span>- Price: {{med.price}} </span>
+    </p>
+    <p matLine style="color: red;" *ngIf="userData.pregnancy && med.notForPregnant">
+      <span>
+        <mat-icon svgIcon="pregnant_women"></mat-icon>
+        Prohibited to use by pregnant women.
+      </span>
+    </p>
+    <p matLine style="color: red;" *ngIf="userData.alcohol && med.noAlcAllowed">
+      <span>
+        <mat-icon>warning</mat-icon>
+        Do not mix with alcohol!
+      </span>
+    </p>
+  </mat-list-item>
+</mat-list>
+<div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;">
+  <div>Current price: {{currentPrice | number : '1.2-2'}} PLN</div>
+  <button *ngIf="currentPrice - analogPrice > 0" mat-raised-button color="accent" (click)="swap()">
+    Click save: {{currentPrice - analogPrice | number : '1.2-2'}} PLN
+  </button>
+</div>
+<mat-divider style="margin-top: 10px;"></mat-divider>
 <div fxLayout="row" fxLayoutAlign="space-between left" style="margin-top: 10px;">
   <button mat-fab color="primary" matStepperPrevious>Back</button>
 </div>

@@ -2,6 +2,6 @@ export class Package {
   id: number;
   ean: string;
   name: string;
-  price: string;
+  price: number;
   refund: number;
 }

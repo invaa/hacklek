@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserData} from "../../../model/user-data";
 import {Medicine} from "../../../model/medicince";
+import {ApiService} from "../../service/api.service";
 
 @Component({
   selector: 'app-prescription-optimizer',
@@ -9,29 +10,53 @@ import {Medicine} from "../../../model/medicince";
 })
 export class PrescriptionOptimizerComponent implements OnInit {
 
-  @Input() _userData: UserData;
-  @Input() _medicines: Medicine[];
+  @Input() userData: UserData;
+  _medicines: Medicine[];
 
-  constructor() {
+  currentMedicines: Medicine[] = [];
+  analogMedicines: Medicine[] = [];
+  currentPrice: number;
+  analogPrice: number;
+
+  constructor(private apiService: ApiService) {
   }
 
   ngOnInit() {
   }
 
-  @Input()
-  set userData(userData: UserData) {
-    if (userData) {
-      console.log(JSON.stringify(userData));
-    }
-    this._userData = userData;
+  private populateMedicine(medId: number) {
+    this.apiService.getAnalogs(medId, this.userData)
+      .subscribe(medicine => {
+        this.currentMedicines = [...this.currentMedicines, medicine];
+        this.analogMedicines = [...this.analogMedicines, medicine.analogs.length != 0 ? medicine.analogs[0] : medicine];
+        this.currentPrice = this.calculatePrice(this.currentMedicines);
+        this.analogPrice = this.calculatePrice(this.analogMedicines);
+      })
+  }
+
+  public calculatePrice(medicines: Medicine[]): number {
+    return medicines
+      .map(m => m.price)
+      .reduce((sum, current) => {
+        return sum + current;
+      }, 0);
+  }
+
+  public swap() {
+    const tempMed: Medicine[] = this.currentMedicines;
+    this.currentMedicines = this.analogMedicines;
+    this.analogMedicines = tempMed;
+    const tempPrice: number = this.currentPrice;
+    this.currentPrice = this.analogPrice;
+    this.analogPrice = tempPrice;
   }
 
   @Input()
   set medicines(medicines: Medicine[]) {
-    if (medicines) {
-      console.log(JSON.stringify(medicines));
-    }
     this._medicines = medicines;
+    if (medicines) {
+      medicines.forEach(med => this.populateMedicine(med.id));
+    }
   }
 
 }
