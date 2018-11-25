@@ -21,7 +21,7 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;">
   <div>Current price: {{currentPrice | number : '1.2-2'}} PLN</div>
   <button *ngIf="currentPrice - analogPrice > 0" mat-raised-button color="accent" (click)="swap()">
-    Click save: {{currentPrice - analogPrice | number : '1.2-2'}} PLN
+    Click to save: {{currentPrice - analogPrice | number : '1.2-2'}} PLN
   </button>
 </div>
 <mat-divider style="margin-top: 10px;"></mat-divider>

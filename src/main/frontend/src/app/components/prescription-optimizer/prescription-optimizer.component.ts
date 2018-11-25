@@ -28,7 +28,8 @@ export class PrescriptionOptimizerComponent implements OnInit {
     this.apiService.getAnalogs(medId, this.userData)
       .subscribe(medicine => {
         this.currentMedicines = [...this.currentMedicines, medicine];
-        this.analogMedicines = [...this.analogMedicines, medicine.analogs.length != 0 ? medicine.analogs[0] : medicine];
+        this.analogMedicines = [...this.analogMedicines,
+          medicine.analogs.length != 0 ? medicine.analogs[0] : medicine];
         this.currentPrice = this.calculatePrice(this.currentMedicines);
         this.analogPrice = this.calculatePrice(this.analogMedicines);
       })
@@ -53,6 +54,8 @@ export class PrescriptionOptimizerComponent implements OnInit {
 
   @Input()
   set medicines(medicines: Medicine[]) {
+    this.currentMedicines = [];
+    this.analogMedicines = [];
     this._medicines = medicines;
     if (medicines) {
       medicines.forEach(med => this.populateMedicine(med.id));
