@@ -47,4 +47,16 @@ public class Medicine implements Serializable {
             cascade = CascadeType.ALL)
     @JoinColumn(name="DEFAULT_PACKAGE_ID")
     private Package defaultPackage;
+
+    @Column(name="NOT_FOR_PREGNANT")
+    private boolean notForPregnant;
+
+    @Column(name="NO_ALC_ALLOWED")
+    private boolean noAlcAllowed;
+
+    @Column(name="AGE_FROM")
+    private int ageFrom;
+
+    @Column(name="AGE_TO")
+    private int ageTo;
 }

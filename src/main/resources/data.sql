@@ -10420,3 +10420,7 @@ insert into package(id, ean, name, price, refund, medicine_id) values (5785, '59
 insert into package(id, ean, name, price, refund, medicine_id) values (5786, '5909991094126', '20 szt.', 79.38, 51.06, 3097);
 insert into package(id, ean, name, price, refund, medicine_id) values (5787, '5909991223489', '20 tabl.', 317.52, 204.24, 3098);
 insert into package(id, ean, name, price, refund, medicine_id) values (5788, '5909990325313', '50 tabl.', 7.99, 7.99, 4055);
+update medicine set not_for_pregnant = true where substance_id IN (545, 546, 229, 79);
+update medicine set not_for_pregnant = false where not_for_pregnant is null;
+update medicine set no_alc_allowed = true where substance_id IN (394, 443);
+update medicine set no_alc_allowed = false where no_alc_allowed is null;
