@@ -1,5 +1,6 @@
 package com.hacklek.controller;
 
+import com.hacklek.dtos.ImageDto;
 import com.hacklek.entity.Medicine;
 import com.hacklek.repository.MedicineRepository;
 import lombok.extern.log4j.Log4j;
@@ -39,13 +40,13 @@ public class OcrController {
     private final Pattern WORD = Pattern.compile("\\w+");
 
     @RequestMapping(value = "parseImage", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public ResponseEntity<List<Medicine>> parseEnc(@RequestBody String encodedImage) throws Exception {
+    public ResponseEntity<List<Medicine>> parseEnc(@RequestBody ImageDto imageDto) throws Exception {
         log.info("Parse file endpoint executed.");
 
-        return new ResponseEntity<>(getMedicines(encodedImage), HttpStatus.OK);
+        return new ResponseEntity<>(getMedicines(imageDto.getEncodedImage()), HttpStatus.OK);
     }
 
-    private List<Medicine> getMedicines(@RequestBody String encodedImage) throws Exception {
+    private List<Medicine> getMedicines(String encodedImage) throws Exception {
         List<Medicine> medicines = new ArrayList<>();
         String ocrResult = getParsedStringResponseEntity(encodedImage).replaceAll("\\\\r\\\\n","");
         Matcher matcherParsedText = PATTERN_PARSED_TEXT.matcher(ocrResult);
