@@ -9,4 +9,5 @@ public final class Constants {
     public static final String OCR_API_URL = "https://api.ocr.space/parse/image";
     public static final String API_KEY = "16532ccf0888957";
     public static final String POL = "pol";
+    public static final int ELIGIBLE_FOR_ALCOHOL_AGE = 18;
 }

@@ -1,5 +1,6 @@
 package com.hacklek.controller;
 
+import com.hacklek.constants.Sex;
 import com.hacklek.dtos.MedicineDto;
 import com.hacklek.dtos.UserDataDto;
 import com.hacklek.service.LekLookupService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.hacklek.constants.Constants.ELIGIBLE_FOR_ALCOHOL_AGE;
 
 @EnableAutoConfiguration
 @RestController
@@ -31,6 +34,14 @@ public class LekAlternativesController {
         log.info(userDataDto);
 
         MedicineDto resultDto = lekLookupService.findAlternatives(id);
+
+        if (Sex.M.equals(userDataDto.getSex())) {
+            resultDto.setNotForPregnant(false);
+        }
+        if (Integer.valueOf(userDataDto.getAge()) < ELIGIBLE_FOR_ALCOHOL_AGE)
+        {
+            resultDto.setNoAlcAllowed(false);
+        }
         return new ResponseEntity<>(resultDto, HttpStatus.OK);
     }
 

@@ -23,4 +23,8 @@ public class MedicineDto {
 
     private SubstanceDto substance;
 
+    private Boolean notForPregnant;
+
+    private Boolean noAlcAllowed;
+
 }

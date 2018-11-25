@@ -80,6 +80,9 @@ public class LekLookupService  {
         dto.setId(medicine.getId());
         dto.setType(medicine.getType());
 
+        dto.setNoAlcAllowed(medicine.isNoAlcAllowed());
+        dto.setNotForPregnant(medicine.isNotForPregnant());
+
         List<Package> packages = medicine.getPackages();
         List<PackageDto> packageDtos = new ArrayList<>();
 
