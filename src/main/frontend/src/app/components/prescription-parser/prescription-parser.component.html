@@ -1,13 +1,37 @@
 <form (ngSubmit)="next()" class="prescription-parser-form">
-  <mat-form-field class="full-width">
-    <input type="text" placeholder="Start typing" aria-label="Number" matInput [formControl]="userInput" [matAutocomplete]="auto">
+  <mat-form-field>
+    <input type="text" placeholder="Start typing" aria-label="Number" matInput [formControl]="userInput"
+           [matAutocomplete]="auto">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let option of medicinesOptions | async" [value]="option">
+      <mat-option *ngFor="let option of medicinesOptions | async" [value]="option.name"
+                  (onSelectionChange)="onMedicineSelect(option)">
         {{option.name}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+
+  <mat-divider></mat-divider>
+
+  <div style="margin-top: 10px;">
+    <label class="mat-raised-button" for="file">Upload Image</label>
+    <input type="file" [hidden]="true" id="file" accept="image/*"
+           (change)="handleFileInput($event)">
+  </div>
+  <mat-list #medicines>
+    <mat-list-item *ngFor="let medicine of selectedMedicines">
+      {{medicine.name}}
+    </mat-list-item>
+  </mat-list>
+  <mat-card class="prescription-image" style="max-width: 400px;" *ngIf="selectedMedicines.length != 0">
+    <img mat-card-image [src]="imageSrc">
+  </mat-card>
+  <mat-divider></mat-divider>
+  <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;">
+    <button mat-fab color="primary" matStepperPrevious>Back</button>
+    <button mat-fab color="primary" type="submit" matStepperNext>Next</button>
+  </div>
+
 </form>
-<button mat-button matStepperPrevious>Back</button>
-<button mat-button matStepperNext>Next</button>
+
+
 

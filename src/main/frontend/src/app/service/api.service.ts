@@ -16,5 +16,9 @@ export class ApiService {
     return this.http.get<Medicine[]>(`${ApiConstants.API_LOOKUP_MED}/${userInput}/`);
   }
 
+  public uploadPrescription(base64EncodedImage: string): Observable<Medicine[]> {
+    return this.http.post<Medicine[]>(`${ApiConstants.API_OCR_MED}`, {encodedImage: base64EncodedImage});
+  }
+
 
 }

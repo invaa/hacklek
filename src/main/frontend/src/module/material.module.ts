@@ -16,6 +16,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatListModule} from '@angular/material/list';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -36,7 +38,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatStepperModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatListModule,
+    FlexLayoutModule
   ],
   exports: [
     MatCardModule,
@@ -56,7 +60,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatStepperModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatListModule,
+    FlexLayoutModule
   ],
   declarations: []
 })
