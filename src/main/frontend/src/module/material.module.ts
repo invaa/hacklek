@@ -10,7 +10,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatChipsModule, MatNativeDateModule} from '@angular/material';
+import {MatAutocompleteModule, MatChipsModule, MatNativeDateModule} from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -35,7 +35,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatSelectModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatCardModule,
@@ -54,7 +55,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatSelectModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatAutocompleteModule
   ],
   declarations: []
 })
