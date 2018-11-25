@@ -575,6 +575,7 @@ insert into substance(id, name) values (574, 'Wemurafenib');
 insert into substance(id, name) values (575, 'Wismodegib');
 insert into substance(id, name) values (576, 'Ziprasidonum');
 insert into substance(id, name) values (577, 'Zuclopenthixolum');
+insert into substance(id, name) values (578, 'Ferrosi gluconas');
 insert into medicine(id, name, substance_id) values (1, 'Adeksa, tabl., 50 mg', 2);
 insert into medicine(id, name, substance_id) values (2, 'Glucobay 100, tabl., 100 mg', 2);
 insert into medicine(id, name, substance_id) values (3, 'Glucobay 50, tabl., 50 mg', 2);
@@ -894,8 +895,8 @@ insert into medicine(id, name, substance_id) values (316, 'Azibiot, tabl. powl.,
 insert into medicine(id, name, substance_id) values (317, 'Azimycin, tabl. powl., 250 mg', 53);
 insert into medicine(id, name, substance_id) values (318, 'Azimycin, tabl. powl., 500 mg', 53);
 insert into medicine(id, name, substance_id) values (319, 'AzitroLEK, proszek do sporządzania zawiesiny doustnej, 100 mg/5 ml', 53);
-insert into medicine(id, name, substance_id) values (320, 'AzitroLEK, proszek do sporządzania zawiesiny doustnej, 200 mg/5 ml', 53);
 insert into medicine(id, name, substance_id) values (321, 'AzitroLEK 250, tabl. powl., 250 mg', 53);
+insert into medicine(id, name, substance_id) values (320, 'AzitroLEK, proszek do sporządzania zawiesiny doustnej, 200 mg/5 ml', 53);
 insert into medicine(id, name, substance_id) values (322, 'AzitroLEK 500, tabl. powl., 500 mg', 53);
 insert into medicine(id, name, substance_id) values (323, 'azitroLEK 500, tabl. powl., 500 mg', 53);
 insert into medicine(id, name, substance_id) values (324, 'Azitrox 500, tabl. powl., 500 mg', 53);
@@ -4629,6 +4630,7 @@ insert into medicine(id, name, substance_id) values (4051, 'Vinorelbine Accord, 
 insert into medicine(id, name, substance_id) values (4052, 'Voriconazol Adamed, tabl. powl., 200 mg', 572);
 insert into medicine(id, name, substance_id) values (4053, 'Voriconazol Adamed, tabl. powl., 50 mg', 572);
 insert into medicine(id, name, substance_id) values (4054, 'Voriconazole STADA, tabl. powl., 200 mg', 572);
+insert into medicine(id, name, substance_id) values (4055, 'Ascofer, tabl., 200 mg', 578);
 insert into package(id, ean, name, price, refund, medicine_id) values (1, '5909990893386', '30 szt.', 7.55, 7.15, 1);
 insert into package(id, ean, name, price, refund, medicine_id) values (2, '5909990285518', '30 szt. (2 blist.po 15 szt.)', 17.57, 14.29, 2);
 insert into package(id, ean, name, price, refund, medicine_id) values (3, '5909990285419', '30 szt. (2 blist.po 15 szt.)', 12.87, 7.15, 3);
@@ -10417,3 +10419,4 @@ insert into package(id, ean, name, price, refund, medicine_id) values (5784, '59
 insert into package(id, ean, name, price, refund, medicine_id) values (5785, '5909991094355', '20 szt.', 234.74, 204.24, 3096);
 insert into package(id, ean, name, price, refund, medicine_id) values (5786, '5909991094126', '20 szt.', 79.38, 51.06, 3097);
 insert into package(id, ean, name, price, refund, medicine_id) values (5787, '5909991223489', '20 tabl.', 317.52, 204.24, 3098);
+insert into package(id, ean, name, price, refund, medicine_id) values (5788, '5909990325313', '50 tabl.', 317.52, 204.24, 4055);
