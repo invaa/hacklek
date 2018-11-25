@@ -3,6 +3,7 @@ package com.hacklek.dtos;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -26,5 +27,7 @@ public class MedicineDto {
     private Boolean notForPregnant;
 
     private Boolean noAlcAllowed;
+
+    private BigDecimal price;
 
 }

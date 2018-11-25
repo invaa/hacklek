@@ -10,12 +10,13 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class UserDataDto {
+public class UserDataDtoAndPackage {
 
     @NotNull
     private String age;
     private Sex sex;
     private boolean alcohol;
     private boolean pregnancy;
+    private String packageName;
 
 }

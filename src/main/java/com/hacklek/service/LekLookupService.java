@@ -7,9 +7,14 @@ import com.hacklek.entity.Substance;
 import com.hacklek.repository.MedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static com.hacklek.constants.Constants.INTEGER_ZERO;
 
 @Service
 public class LekLookupService  {
@@ -18,7 +23,6 @@ public class LekLookupService  {
     @Autowired
     private MedicineRepository medicineRepository;
 
-
     private String getProductDoseFromRawName(String rawProductName) {
         String[] array = rawProductName.split(PRODUCT_DOSE_SEPARATOR);
 
@@ -26,7 +30,7 @@ public class LekLookupService  {
             return null;
         }
 
-        return array[2];
+        return array[2].trim().replaceAll("μ","µ");
     }
 
     private String getProductName(String rawProductName) {
@@ -39,8 +43,24 @@ public class LekLookupService  {
         return array[0];
     }
 
-    public MedicineDto findAlternatives(Long id) {
+    public MedicineDto findAlternatives(Long id, String packageName) {
         Medicine medicine = medicineRepository.findOne(id);
+        MedicineDto dto = new MedicineDto();
+
+        //getting current price and name for any package if omitted
+        if (StringUtils.isEmpty(packageName) && !medicine.getPackages().isEmpty()) {
+            Package pack = medicine.getPackages().get(INTEGER_ZERO);
+            packageName = pack.getName();
+        }
+
+        final String lookupName = packageName;
+
+        if (!packageName.isEmpty()) {
+            medicine.getPackages()
+                    .stream().filter(
+                            p -> lookupName.equalsIgnoreCase(p.getName())
+                    ).findAny().ifPresent(pkg -> dto.setPrice(pkg.getPrice()));
+        }
 
         String productRawName = medicine.getName();
 
@@ -66,11 +86,18 @@ public class LekLookupService  {
                 continue;
             }
 
-            MedicineDto alternative = convertToMedicineDto(altMedicine);
-            medicineAlternativesDtos.add(alternative);
+            altMedicine.getPackages()
+                    .stream()
+                    .filter(p -> lookupName.equalsIgnoreCase(p.getName()))
+                    .sorted(Comparator.comparing(Package::getPrice))
+                    .findFirst().ifPresent(p -> {
+                        MedicineDto alternative = convertToMedicineDto(altMedicine);
+                        alternative.setPrice(p.getPrice());
+                        medicineAlternativesDtos.add(alternative);
+                    }
+                 );
+                break;
         }
-
-        MedicineDto dto = new MedicineDto();
         dto.setAnalogs(medicineAlternativesDtos);
 
         dto.setSubstance(convertToSubstanceDto(medicine.getSubstance()));
@@ -80,8 +107,8 @@ public class LekLookupService  {
         dto.setId(medicine.getId());
         dto.setType(medicine.getType());
 
-        dto.setNoAlcAllowed(medicine.isNoAlcAllowed());
-        dto.setNotForPregnant(medicine.isNotForPregnant());
+        dto.setNoAlcAllowed(medicine.getNoAlcAllowed());
+        dto.setNotForPregnant(medicine.getNotForPregnant());
 
         List<Package> packages = medicine.getPackages();
         List<PackageDto> packageDtos = new ArrayList<>();

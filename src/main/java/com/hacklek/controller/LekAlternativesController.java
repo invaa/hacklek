@@ -2,7 +2,7 @@ package com.hacklek.controller;
 
 import com.hacklek.constants.Sex;
 import com.hacklek.dtos.MedicineDto;
-import com.hacklek.dtos.UserDataDto;
+import com.hacklek.dtos.UserDataDtoAndPackage;
 import com.hacklek.service.LekLookupService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class LekAlternativesController {
     private LekLookupService lekLookupService;
 
     @RequestMapping(value = "alternatives/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public ResponseEntity<MedicineDto> lookup(@PathVariable("id") Long id, @RequestBody UserDataDto userDataDto) {
+    public ResponseEntity<MedicineDto> lookup(@PathVariable("id") Long id, @RequestBody UserDataDtoAndPackage userDataDto) {
         log.info("alternatives endpoint executed.");
 
         log.info(userDataDto);
 
-        MedicineDto resultDto = lekLookupService.findAlternatives(id);
+        MedicineDto resultDto = lekLookupService.findAlternatives(id, userDataDto.getPackageName());
 
         if (Sex.M.equals(userDataDto.getSex())) {
             resultDto.setNotForPregnant(false);

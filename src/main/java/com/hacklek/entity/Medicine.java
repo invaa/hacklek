@@ -49,14 +49,14 @@ public class Medicine implements Serializable {
     private Package defaultPackage;
 
     @Column(name="NOT_FOR_PREGNANT")
-    private boolean notForPregnant;
+    private Boolean notForPregnant;
 
     @Column(name="NO_ALC_ALLOWED")
-    private boolean noAlcAllowed;
+    private Boolean noAlcAllowed;
 
     @Column(name="AGE_FROM")
-    private int ageFrom;
+    private Integer ageFrom;
 
     @Column(name="AGE_TO")
-    private int ageTo;
+    private Integer ageTo;
 }
